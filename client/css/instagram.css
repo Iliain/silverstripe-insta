@@ -1,0 +1,31 @@
+.insta-default {
+    width: 400px;
+    margin-bottom: 30px;
+}
+
+.insta-default a {
+    padding: 15px 30px;
+    color: #FFF;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background: rgb(131,58,180);
+    background: linear-gradient(209deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all .3s; 
+}
+
+.insta-default a:hover {
+    box-shadow: 0 0 8px 6px rgba(0, 0, 0, 0.15);
+    transition: all .3s; 
+}
+
+.insta-default a i {
+    color: #FFF;
+    position: relative;
+    margin-right: 10px;
+    vertical-align: middle;
+    font-size: 35px;
+    margin-bottom: 4px; 
+}
