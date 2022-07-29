@@ -3,7 +3,7 @@ Code for Silverstripe that interacts with the Express auth app. This is designed
 
 ## Installation (with composer)
 
-	$ composer require iliain/userform-columns
+	$ composer require iliain/silverstripe-insta
 
 
 ## Config
