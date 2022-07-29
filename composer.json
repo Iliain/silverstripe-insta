@@ -23,5 +23,6 @@
         "expose": [
             "client"
         ]
-    }
+    },
+    "minimum-stability": "dev"
 }
