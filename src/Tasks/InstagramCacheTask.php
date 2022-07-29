@@ -46,7 +46,8 @@ class InstagramCacheTask extends BuildTask
     
                 $data = $this->setArrayData(json_decode($output, true)['data']);
         
-                $this->setCache($data, $this->cache_file);
+                $this->setCache($data, $cacheFile);
+                DB::alteration_message('Cache has been updated', 'success');
     
                 Controller::curr()->redirect($confLink . '/instagram/auth/refresh?access_token=' . $accessToken . '&return=' . Director::absoluteBaseURL() . 'instagram/auth');
             } else {
@@ -64,6 +65,7 @@ class InstagramCacheTask extends BuildTask
         foreach ($output as $item) {
             $updatedData = [
                 'ID' => $item['id'] ?? '',
+                'Username' => $item['username'] ?? '',
                 'Caption' => isset($item['caption']) ? DBField::create_field('Text', $item['caption']) : '',
                 'Link' => $item['permalink'] ?? '',
                 'Image' => isset($item['thumbnail_url']) ? $item['thumbnail_url'] : $item['media_url'],
