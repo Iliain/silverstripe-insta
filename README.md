@@ -1,6 +1,11 @@
 # Silverstripe Instagram
 Code for Silverstripe that interacts with the Express auth app. This is designed to query [the app found here](https://github.com/Iliain/insta-auth) and will not function without it. The code is designed to provide a login link, store incoming tokens, and use said tokens to request feed information from the Basic Display API, nothing more.
 
+## Installation (with composer)
+
+	$ composer require iliain/userform-columns
+
+
 ## Config
 
 You'll need to define the following variables in your config:
@@ -30,6 +35,7 @@ public function getInstagramFeed()
 The fields available to display are the following: 
 
 * ID
+* Username
 * Caption (stored as a Text DBField)
 * Link
 * Image (returns thumbnail_url if present, defaults to media_url if not)
