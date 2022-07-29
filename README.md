@@ -9,7 +9,6 @@ You'll need to define the following variables in your config:
 Instagram:
   auth_handler_url: 'https://locationofauthhandler.app'
   cache_file: 'filename.txt'
-
 ```
 `auth_handler_url` is used to define the URL where the auth app is located, while `cache_file` simply determines the name assigned to the local cache file for the feed. 
 
