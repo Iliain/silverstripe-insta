@@ -13,7 +13,7 @@ use SilverStripe\Forms\TextareaField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\View\Requirements;
 
-class SiteConfigExtension extends DataExtension
+class InstagramSiteConfigExtension extends DataExtension
 {
     private static $db = [
         'InstagramToken'	  => 'Varchar(255)',
@@ -43,7 +43,7 @@ class SiteConfigExtension extends DataExtension
                 LiteralField::create('InstagramButton', '
                     <div class="insta-default">
                       <a href="' . $confLink . '/instagram/auth?return=' . Director::absoluteBaseURL() . 'instagram/auth' . '" class="insta-default"><i class="fa fa-instagram"></i> Connect Account</a>
-                    </div>
+                    </div>'
                 )
             ]);
             
