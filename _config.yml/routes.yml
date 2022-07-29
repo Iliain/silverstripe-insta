@@ -1,0 +1,9 @@
+---
+name: instagramroutes
+After:
+  - '#rootroutes'
+  - '#coreroutes'
+---
+SilverStripe\Control\Director:
+  rules:
+    'instagram/auth': 'Iliain\Instagram\Controllers\InstagramAuthController'
