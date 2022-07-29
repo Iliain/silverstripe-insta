@@ -1,7 +1,7 @@
-# silverstripe-insta
+# Silverstripe Instagram
 Code for Silverstripe that interacts with the Express auth app. This is designed to query [the app found here](https://github.com/Iliain/insta-auth) and will not function without it. The code is designed to provide a login link, store incoming tokens, and use said tokens to request feed information from the Basic Display API, nothing more.
 
-## Installation
+## Config
 
 You'll need to define the following variables in your config:
 
