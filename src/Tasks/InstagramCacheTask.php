@@ -26,30 +26,30 @@ class InstagramCacheTask extends BuildTask
     public function run($request)
     {
         set_time_limit(0);
+        
+        $limit = $request->getVar('limit') ?? null;
 
         $confLink = Config::inst()->get('Instagram', 'auth_handler_url');
         $cacheFile = Config::inst()->get('Instagram', 'cache_file') ? Config::inst()->get('Instagram', 'cache_file') : 'SocialFeedCache.txt';
 
         if ($confLink) {
             $siteConfig = SiteConfig::current_site_config();
-
-            $accessToken = $siteConfig->InstagramToken;
-            if ($accessToken) {
-                $fields = 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username,like_count,comment_count';
-                $url = 'https://graph.instagram.com/me/media?fields=' . $fields . '&access_token=' . $accessToken;
-        
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                $output = curl_exec($ch);
-                curl_close($ch);
-    
-                $data = $this->setArrayData(json_decode($output, true)['data']);
+            
+            $rawData = $siteConfig->getInstagramPosts($limit);
+            if ($rawData) {
+                $data = $this->setArrayData($rawData);
         
                 $this->setCache($data, $cacheFile);
                 DB::alteration_message('Cache has been updated', 'success');
-    
-                Controller::curr()->redirect($confLink . '/instagram/auth/refresh?access_token=' . $accessToken . '&return=' . Director::absoluteBaseURL() . 'instagram/auth');
+                
+                // If current token is older than 24 hours but younger than 60 days, we can refresh it
+                $expiryDate = $siteConfig->InstagramExpires;
+                $isOldEnough = date('Y/m/d H:i:s', '-24 hours') > $expiryDate;
+                $isYoungEnough = date('Y/m/d H:i:s') < $expiryDate;
+                
+                if ($isOldEnough && $isYoungEnough) {
+                    Controller::curr()->redirect($confLink . '/instagram/auth/refresh?access_token=' . $accessToken . '&return=' . Director::absoluteBaseURL() . 'instagram/auth');
+                }
             } else {
                 DB::alteration_message('No access token present', 'error');
             }
