@@ -50,4 +50,28 @@ class InstagramSiteConfigExtension extends DataExtension
             Requirements::css('iliain/silverstripe-insta:client/css/instagram.css');
         }
     }
+    
+    public function getInstagramPosts($limit = null)
+    {
+        $accessToken = $this->owner->InstagramToken;
+        
+        if ($accessToken) {
+            $fields = 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username';
+            $url = 'https://graph.instagram.com/me/media?fields=' . $fields . '&access_token=' . $accessToken;
+            
+            if ($limit) {
+                $url .= '&limit=' . $limit;
+            }
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $output = curl_exec($ch);
+            curl_close($ch);
+            
+            // @todo check if feed data has been returned
+
+            return json_decode($output, true)['data'];
+        }
+    }
 }
