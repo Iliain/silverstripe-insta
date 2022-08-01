@@ -22,7 +22,8 @@ Instagram:
 Once configured, the code will add a new section to the site Settings in the CMS. Users can use this to log in and authorise an account, which will then store an access token. From here, you can then use the InstagramCacheTask to query the Basic Display API for you and retrieve some posts, which will then be stored in a local file in the public directory. A limit can be included, but is optional.
 
 ```
-mysite.com/dev/tasks/set-instagram-cache?limit=5
+Frontend: mysite.com/dev/tasks/set-instagram-cache?limit=5
+Backend:  sake dev/tasks/set-instagram-cache "limit=5"
 ```
 
 You can use code like the following example to pull this data into the frontend:
