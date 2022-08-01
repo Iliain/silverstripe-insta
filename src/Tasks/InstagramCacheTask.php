@@ -30,10 +30,11 @@ class InstagramCacheTask extends BuildTask
         $limit = $request->getVar('limit') ?? null;
 
         $confLink = Config::inst()->get('Instagram', 'auth_handler_url');
-        $cacheFile = Config::inst()->get('Instagram', 'cache_file') ? Config::inst()->get('Instagram', 'cache_file') : 'SocialFeedCache.txt';
+        $cacheFile = Config::inst()->get('Instagram', 'cache_file') ?? 'SocialFeedCache.txt';
 
         if ($confLink) {
             $siteConfig = SiteConfig::current_site_config();
+            $accessToken = $siteConfig->InstagramToken;
             
             $rawData = $siteConfig->getInstagramPosts($limit);
             if ($rawData) {
@@ -44,7 +45,7 @@ class InstagramCacheTask extends BuildTask
                 
                 // If current token is older than 24 hours but younger than 60 days, we can refresh it
                 $expiryDate = $siteConfig->InstagramExpires;
-                $isOldEnough = date('Y/m/d H:i:s', '-24 hours') > $expiryDate;
+                $isOldEnough = date('Y/m/d H:i:s', strtotime('-24 hours', time())) > $expiryDate;
                 $isYoungEnough = date('Y/m/d H:i:s') < $expiryDate;
                 
                 if ($isOldEnough && $isYoungEnough) {
@@ -69,9 +70,7 @@ class InstagramCacheTask extends BuildTask
                 'Caption' => isset($item['caption']) ? DBField::create_field('Text', $item['caption']) : '',
                 'Link' => $item['permalink'] ?? '',
                 'Image' => isset($item['thumbnail_url']) ? $item['thumbnail_url'] : $item['media_url'],
-                'Timestamp' => isset($item['timestamp']) ? DBField::create_field('Datetime', $item['timestamp']) : '',
-                'Likes' => isset($item['like_count']) ? $item['like_count'] : 0,
-                'Comments' => isset($item['comments_count']) ? $item['comments_count'] : 0,
+                'Timestamp' => isset($item['timestamp']) ? DBField::create_field('Datetime', $item['timestamp']) : ''
             ];
 
             $list->push($updatedData);
