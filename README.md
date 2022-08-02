@@ -29,14 +29,8 @@ Backend:  sake dev/tasks/set-instagram-cache "limit=5"
 You can use code like the following example to pull this data into the frontend:
 
 ```
-public function getInstagramFeed()
-{
-    $path = PUBLIC_PATH . DIRECTORY_SEPARATOR . 'SocialFeedCache.txt';
-
-    $cache = file_get_contents($path);
-
-    return unserialize($cache);
-}
+$siteConfig = SiteConfig::current_site_config();
+$posts = $siteConfig->getCachedFeed();
 ```
 
 The fields available to display are the following: 
