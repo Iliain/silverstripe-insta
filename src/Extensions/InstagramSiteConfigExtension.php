@@ -75,4 +75,17 @@ class InstagramSiteConfigExtension extends DataExtension
             return json_decode($output, true)['data'];
         }
     }
+    
+    public function getCachedFeed()
+    {
+        $cacheFile = Config::inst()->get('Instagram', 'cache_file') ?? 'SocialFeedCache.txt';
+        $path = PUBLIC_PATH . DIRECTORY_SEPARATOR . $cacheFile;
+
+        $cache = file_get_contents($path);
+        if ($cache) {
+            return unserialize($cache);
+        } else {
+            return null;
+        }
+    }
 }
