@@ -3,7 +3,7 @@ Code for Silverstripe that interacts with the Express auth app. This is designed
 
 ## Installation (with composer)
 
-	$ composer require iliain/silverstripe-insta
+	composer require iliain/silverstripe-insta
 
 
 ## Config
@@ -29,8 +29,12 @@ Backend:  sake dev/tasks/set-instagram-cache "limit=5"
 You can use code like the following example to pull this data into the frontend:
 
 ```
-$siteConfig = SiteConfig::current_site_config();
-$posts = $siteConfig->getCachedFeed();
+public function getInstagramFeed()
+{
+	$path = Config::inst()->get('Instagram', 'cache_file');
+	$cache = file_get_contents($path);
+	return unserialize($cache);
+}
 ```
 
 The fields available to display are the following: 
