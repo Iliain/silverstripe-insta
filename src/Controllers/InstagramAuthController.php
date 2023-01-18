@@ -8,23 +8,39 @@ use SilverStripe\SiteConfig\SiteConfig;
 
 class InstagramAuthController extends Controller
 {
-    private static $url_handlers = [
-        'instagram/auth' => 'index'
+    private static $allowed_actions = [
+        'instagram',
+        'facebook'
     ];
 
-    public function index($request)
+    private static $url_handlers = [
+        'auth/instgram' => 'instagram',
+        'auth/facebook' => 'facebook'
+    ];
+
+    public function setData($type, $request)
     {
         $siteConfig = SiteConfig::current_site_config();
 
         $token = $request->getVar('access_token');
         $expires = $request->getVar('expires_in');
 
-        if ($token) {
-            $siteConfig->InstagramToken = $token;
-        }
-
-        if ($expires) {
-            $siteConfig->InstagramExpires = date('Y/m/d H:i:s', strtotime('+' . $expires . ' seconds'));
+        if ($type == 'instagram') {
+            if ($token) {
+                $siteConfig->InstagramToken = $token;
+            }
+    
+            if ($expires) {
+                $siteConfig->InstagramExpires = date('Y/m/d H:i:s', strtotime('+' . $expires . ' seconds'));
+            }
+        } else if ($type == 'facebook') {
+            if ($token) {
+                $siteConfig->FacebookToken = $token;
+            }
+    
+            if ($expires) {
+                $siteConfig->FacebookExpires = date('Y/m/d H:i:s', strtotime('+' . $expires . ' seconds'));
+            }
         }
 
         if ($token && $expires) {
@@ -34,5 +50,15 @@ class InstagramAuthController extends Controller
         if (!Director::is_cli()) {
             Controller::curr()->redirect('/admin/settings/#Root_Instagram');
         }
+    }
+
+    public function instagram($request)
+    {
+        $this->setData('instagram', $request);
+    }
+
+    public function facebook($request)
+    {
+        $this->setData('facebook', $request);
     }
 }
