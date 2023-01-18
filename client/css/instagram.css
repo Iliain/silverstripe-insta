@@ -1,6 +1,5 @@
 .insta-default {
     width: 400px;
-    margin-bottom: 30px;
 }
 
 .insta-default a {
@@ -22,6 +21,36 @@
 }
 
 .insta-default a i {
+    color: #FFF;
+    position: relative;
+    margin-right: 10px;
+    vertical-align: middle;
+    font-size: 35px;
+    margin-bottom: 4px; 
+}
+
+.fb-button {
+    width: 400px;
+}
+
+.fb-button a {
+    padding: 15px 30px;
+    color: #FFF;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background: #4080ff;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all .3s; 
+}
+
+.fb-button a:hover {
+    box-shadow: 0 0 8px 6px rgba(0, 0, 0, 0.15);
+    transition: all .3s; 
+}
+
+.fb-button a i {
     color: #FFF;
     position: relative;
     margin-right: 10px;
