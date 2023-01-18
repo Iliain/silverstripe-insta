@@ -6,4 +6,5 @@ After:
 ---
 SilverStripe\Control\Director:
   rules:
-    'instagram/auth': 'Iliain\Instagram\Controllers\InstagramAuthController'
+    'auth//instagram/': 'Iliain\Instagram\Controllers\InstagramAuthController'
+    'auth//facebook/': 'Iliain\Instagram\Controllers\InstagramAuthController'
