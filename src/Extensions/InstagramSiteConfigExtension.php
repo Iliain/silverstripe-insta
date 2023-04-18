@@ -45,7 +45,7 @@ class InstagramSiteConfigExtension extends DataExtension
                 TextareaField::create('InstagramToken', 'Your Access Token')->setReadonly(true),
                 LiteralField::create('InstagramButton', '
                     <div class="insta-default">
-                        <a href="' . $instaConfLink . '/instagram/auth?return=' . Director::absoluteBaseURL() . 'auth/instagram' . '" class="insta-default"><i class="fab fa-instagram"></i> Connect Account</a>
+                        <a href="' . $instaConfLink . '/instagram/auth?return=' . Director::absoluteBaseURL() . 'auth/instagram' . '" class="insta-default"><i class="fa fa-instagram"></i> Connect Account</a>
                     </div>
                     <div class="form-group"></div>'
                 )
